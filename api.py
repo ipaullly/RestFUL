@@ -7,6 +7,13 @@ languages = [{'name' : 'Javascript'}, {'name' : 'Python'}, {'name' : 'Ruby'}]
 def test():
     return jsonify({'prompt' : 'Welcome to restful api'})
 
+@app.route('/postjson', methods = ['POST'])
+def postJsonHandler():
+    print (request.is_json)
+    content = request.get_json()
+    print (content)
+    return 'JSON posted'
+
 @app.route('/lang', methods=['GET'])
 def returnAll():
     return jsonify({'languages' : languages})
@@ -18,9 +25,10 @@ def returnOne(name):
 
 @app.route('/lang', methods=['POST'])
 def addOne():
-    addition ={'name' : request.get_json(['name'])}
+    
+    language = {'name' : request.json['name']}    
 
-    languages.append(addition)
+    languages.append(language)
     return jsonify({'languages' : languages})  
 
 if __name__ == '__main__':
