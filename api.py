@@ -16,5 +16,12 @@ def returnOne(name):
     langs = [language for language in languages if language['name'] == name]
     return jsonify({'language' : langs[0]})
 
+@app.route('/lang', methods=['POST'])
+def addOne():
+    addition ={'name' : request.get_json(['name'])}
+
+    languages.append(addition)
+    return jsonify({'languages' : languages})  
+
 if __name__ == '__main__':
     app.run(debug=True)
